@@ -1,4 +1,4 @@
-import { CLOSE_MODEL, OPEN_MODEL, SAVE } from "../types/modalTypes";
+import { CLOSE_MODEL, OPEN_MODEL } from "../types/modalTypes";
 
 const initialState = { visible: false, user: {},  type:null }
 

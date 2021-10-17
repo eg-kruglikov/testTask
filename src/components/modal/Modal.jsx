@@ -11,7 +11,6 @@ const Window = () => {
   const modal = useSelector((state) => state.modal);
   const rolesRedux = useSelector((state) => state.roles);
 
-console.log(rolesRedux);
   const dispath = useDispatch();
 
   const [name, setName] = useState("");

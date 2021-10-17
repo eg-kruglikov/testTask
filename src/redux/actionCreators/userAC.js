@@ -1,4 +1,4 @@
-import { CHANGE_USER, GET_USERS } from "../types/userTypes";
+import { GET_USERS } from "../types/userTypes";
 import { closeModal } from "./modalAC";
 
 export const getUsers = () => async (dispatch, getState) => {
@@ -11,7 +11,6 @@ export const getUsers = () => async (dispatch, getState) => {
     });
 
     const usersFromServer = await response.json();
-    console.log(usersFromServer);
 
     dispatch(putUsersToRedux(usersFromServer));
   } catch (error) {
@@ -26,8 +25,7 @@ const putUsersToRedux = (obj) => {
   };
 };
 
-export const changeUser = (user) => async (dispatch, getState) =>  {
-
+export const changeUser = (user) => async (dispatch, getState) => {
   try {
     await fetch(`http://localhost:3000/api/users/${user.id}`, {
       method: "PUT",
@@ -37,16 +35,15 @@ export const changeUser = (user) => async (dispatch, getState) =>  {
       body: JSON.stringify(user),
     });
     dispatch(getUsers());
-    dispatch(closeModal())
+    dispatch(closeModal());
   } catch (error) {
     alert(error);
   }
-
 };
 
-export const newUser  = (user) => async (dispatch, getState) =>  {
+export const newUser = (user) => async (dispatch, getState) => {
   try {
-    const response = await fetch("http://localhost:3000/api/users", {
+    await fetch("http://localhost:3000/api/users", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -54,26 +51,23 @@ export const newUser  = (user) => async (dispatch, getState) =>  {
       body: JSON.stringify(user),
     });
 
-    const usersFromServer = await response.json();
-    console.log(usersFromServer);
     dispatch(getUsers());
-    dispatch(closeModal())
+    dispatch(closeModal());
   } catch (error) {
     alert(error);
   }
-}
+};
 
 export const deleteUser = (id) => async (dispatch, getState) => {
-  
   try {
     await fetch(`http://localhost:3000/api/users/${id}`, {
       method: "DELETE",
       headers: {
         "Content-Type": "application/json",
-      }
+      },
     });
     dispatch(getUsers());
   } catch (error) {
     alert(error);
   }
-}
+};

@@ -1,6 +1,6 @@
 
 import { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { getRoles } from "../../redux/actionCreators/rolesAC";
 import { getUsers } from "../../redux/actionCreators/userAC";
 import Body from "../body/Body";
