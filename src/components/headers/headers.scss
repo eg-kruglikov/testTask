@@ -1,9 +1,15 @@
 .headers{
   height: 15%;
   width: 100%;
-  background-color: gray;
+  background-color: #F5F6F9;
   display: flex;
   flex-direction: row;
   align-items: center;
   justify-content: space-around;
+}
+
+.headersUsers{
+  font-size:xx-large;
+  font-weight: 600;
+  color: #19318a;
 }
