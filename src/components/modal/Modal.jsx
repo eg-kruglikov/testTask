@@ -4,8 +4,8 @@ import { closeModal } from "../../redux/actionCreators/modalAC";
 import "./modal.scss";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
-import { changeUser, newUser } from "../../redux/actionCreators/userAC";
-import { NEW, SAVE } from "../../redux/types/modalTypes";
+import { changeUser, deleteUser, newUser } from "../../redux/actionCreators/userAC";
+import { CONF, NEW, SAVE } from "../../redux/types/modalTypes";
 
 const Window = () => {
   const modal = useSelector((state) => state.modal);
@@ -24,7 +24,9 @@ const Window = () => {
   const [registerDate, setRegisterDate] = useState("");
   const [changeDate, setChangeDate] = useState("");
 
-  const initStateRoles = rolesRedux.collection ? rolesRedux.collection[2] : { id: "cda009c3-529a-432c-9df6-7b5d83be63f3", title: "Гость" }
+  const initStateRoles = rolesRedux.collection
+    ? rolesRedux.collection[2]
+    : { id: "cda009c3-529a-432c-9df6-7b5d83be63f3", title: "Гость" };
 
   useEffect(() => {
     setName(modal.name);
@@ -35,11 +37,11 @@ const Window = () => {
     setBirthPlace(modal.birthPlace);
     setMail(modal.email);
     setPhoneNumber(modal.phoneNumber);
-    setRegisterDate(modal.registerDate ? new Date(modal.registerDate) : new Date());
+    setRegisterDate(
+      modal.registerDate ? new Date(modal.registerDate) : new Date()
+    );
     setChangeDate(new Date());
   }, [modal]);
-
-  
 
   const typeSubmitFunc = () => {
     switch (modal.type) {
@@ -95,8 +97,6 @@ const Window = () => {
         return;
     }
   };
-
-  if (!modal.visible) return null;
 
   // или возвращаем верстку модального окна
   return (
@@ -245,10 +245,55 @@ const Window = () => {
   );
 };
 
-export default function Modal() {
+const Confirmation = () => {
+  const modal = useSelector((state) => state.modal);
+  const dispath = useDispatch();
+  const id = modal.user
+
   return (
-    <>
-      <Window />
-    </>
+    <div className="modalConf">
+      <div className="modalDialogConf">
+        <div className="modal-header">
+          <div className="modalCloseConf">
+            <div>Точно ?</div>
+          </div>
+        </div>
+        <div>
+          <Button
+            onClick={() => {dispath(deleteUser(id)); dispath(closeModal())}}
+            sx={{ width: "150px", margin: "10px " }}
+            type="submit"
+            variant="contained"
+          >
+            ДА
+          </Button>
+          <Button
+            onClick={() => dispath(closeModal())}
+            sx={{ width: "150px" }}
+            type="submit"
+            variant="contained"
+          >
+            НЕТ
+          </Button>
+        </div>
+      </div>
+    </div>
   );
+};
+
+export default function Modal() {
+  const modal = useSelector((state) => state.modal);
+  switch (modal.type) {
+    case SAVE:
+      return <Window />;
+
+    case NEW:
+      return <Window />;
+
+    case CONF:
+      return <Confirmation />;
+
+    default:
+      return null;
+  }
 }

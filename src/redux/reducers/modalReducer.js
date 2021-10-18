@@ -1,4 +1,4 @@
-import { CLOSE_MODEL, OPEN_MODEL } from "../types/modalTypes";
+import { CLOSE_MODEL, CONF, OPEN_MODEL } from "../types/modalTypes";
 
 const initialState = { visible: false, user: {},  type:null }
 
@@ -13,6 +13,14 @@ const modalReducer = (state = initialState, action) => {
 
       case CLOSE_MODEL:
         return initialState;
+
+        case CONF:
+        return {
+          ...state,
+          visible: true,
+          user: action.payload,
+          type: action.type
+        }
 
     default:
       return state;

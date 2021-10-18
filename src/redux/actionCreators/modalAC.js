@@ -1,21 +1,28 @@
-import { CLOSE_MODEL, NEW, OPEN_MODEL, SAVE } from "../types/modalTypes"
+import { CLOSE_MODEL, CONF, NEW, OPEN_MODEL, SAVE } from "../types/modalTypes";
 
 export const openModelSave = (user) => {
   return {
     type: OPEN_MODEL,
-    payload: {...user, type: SAVE},
-  }
-}
+    payload: { ...user, type: SAVE },
+  };
+};
 
 export const closeModal = () => {
   return {
-    type: CLOSE_MODEL
-  }
-}
+    type: CLOSE_MODEL,
+  };
+};
 
 export const openModelNew = (user) => {
   return {
     type: OPEN_MODEL,
-    payload: {...user, type: NEW},
-  }
-}
+    payload: { ...user, type: NEW },
+  };
+};
+
+export const confModal = (id) => {
+  return {
+    type: CONF,
+    payload: id,
+  };
+};

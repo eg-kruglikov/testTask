@@ -3,7 +3,7 @@ import "./users.scss";
 import change from "./change.png";
 import deleteImg from "./delete.png";
 import { useDispatch } from "react-redux";
-import { openModelSave } from "../../redux/actionCreators/modalAC";
+import { confModal, openModelSave } from "../../redux/actionCreators/modalAC";
 import { deleteUser } from "../../redux/actionCreators/userAC";
 
 export default function Users() {
@@ -12,22 +12,22 @@ export default function Users() {
   return (
     <div className="users">
       <div className="usersHeader">
-        <div className='userIndex'><p>№</p> </div>
-        <div className='userName'><p> ФИО пользователя</p></div>
-        <div className='userTitle'><p>Роль</p></div>
-        <div className='userBirthday'><p>Дата рождения</p></div>
-        <div className='userBirthPlace'><p>Место рождения</p></div>
-        <div className='userEmail'><p>Почта</p></div>
-        <div className='userPhoneNumber'><p>Телефон</p></div>
-        <div className='userRegisterDate'><p>Регистрация</p></div>
-        <div className='userLastUpdate'><p>Изменение</p></div>
-        <div className='userChange'><p>Ред</p></div>
-        <div className='userDelete'><p>Удалить</p></div>
+        <div className='userHeaderIndex'><p>№</p> </div>
+        <div className='userHeaderName'><p> ФИО пользователя</p></div>
+        <div className='userHeaderTitle'><p>Роль</p></div>
+        <div className='userHeaderBirthday'><p>Дата рождения</p></div>
+        <div className='userHeaderBirthPlace'><p>Место рождения</p></div>
+        <div className='userHeaderEmail'><p>Почта</p></div>
+        <div className='userHeaderPhoneNumber'><p>Телефон</p></div>
+        <div className='userHeaderRegisterDate'><p>Регистрация</p></div>
+        <div className='userHeaderLastUpdate'><p>Изменение</p></div>
+        <div className='userHeaderChange'><p>Ред</p></div>
+        <div className='userHeaderDelete'><p>Удалить</p></div>
       </div>
 
       {users.collection?.map((el, i) => (
         <div key={i} className="usersBody">
-          <div className='userIndex'>{i}</div>
+          <div className='userIndex'>{++i}</div>
           <div className='userName'>{`${el.name} ${el.surname.split("")[0]}.${
             el.middleName.split("")[0]
           }.`}</div>
@@ -46,7 +46,7 @@ export default function Users() {
             <img className="changeImg" src={change} alt="" />
           </div>
           <div onClick={() => {
-              dispath(deleteUser(el.id));
+              dispath(confModal(el.id));
             }} className='userDelete'>
             <img className="deleteImg" src={deleteImg} alt="" />
           </div>
